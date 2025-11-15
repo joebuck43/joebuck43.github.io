@@ -8,3 +8,81 @@
     <p>i hope its unblocked i hope his works its 1:00 am and i am learning html for this</p>
   </body>
 </html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MP3 Player with Shuffle</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .player-container {
+      margin-top: 50px;
+    }
+    .controls {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple MP3 Player with Shuffle</h1>
+  
+  <div class="player-container">
+    <audio id="audio-player" controls>
+      <source id="audio-source" src="" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+
+    <div class="controls">
+      <button onclick="playPause()">Play/Pause</button>
+      <button onclick="shuffle()">Shuffle</button>
+    </div>
+  </div>
+
+  <script>
+    // List of Google Drive MP3 links (use the correct 'export=download' format)
+    const mp3Files = [
+      "https://drive.google.com/uc?export=download&id=1Cm9m841c8l_uGIXf_EjJkjKLcA12Mtf5", // Your Google Drive file
+      "https://drive.google.com/uc?export=download&id=FILE_ID_2",  // Add more links here
+      "https://drive.google.com/uc?export=download&id=FILE_ID_3"
+    ];
+
+    let currentTrackIndex = 0;
+    const audioPlayer = document.getElementById('audio-player');
+    const audioSource = document.getElementById('audio-source');
+    
+    // Set the first track
+    audioSource.src = mp3Files[currentTrackIndex];
+    audioPlayer.load();
+
+    // Play/Pause function
+    function playPause() {
+      if (audioPlayer.paused) {
+        audioPlayer.play();
+      } else {
+        audioPlayer.pause();
+      }
+    }
+
+    // Shuffle function
+    function shuffle() {
+      const randomIndex = Math.floor(Math.random() * mp3Files.length);
+      currentTrackIndex = randomIndex;
+      audioSource.src = mp3Files[currentTrackIndex];
+      audioPlayer.load();
+      audioPlayer.play();
+    }
+
+    // Play the next track when the current one ends
+    audioPlayer.addEventListener('ended', function() {
+      shuffle();
+    });
+
+  </script>
+</body>
+</html>
